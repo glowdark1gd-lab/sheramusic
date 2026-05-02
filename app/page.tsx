@@ -75,7 +75,8 @@ export default function Home() {
   const currentSong = queue.length > 0 ? queue[0] : null;
 
   return (
-    <div className="min-h-screen bg-black font-sans relative overflow-x-hidden">
+    // PERBAIKAN 1: Kunci layar agar tidak bisa di-scroll saat Mode TV
+    <div className={`min-h-screen bg-black font-sans relative ${isTVMode ? 'overflow-hidden' : 'overflow-x-hidden'}`}>
 
       {/* 1. MODAL POP-UP */}
       {addedSongModal && (
@@ -91,31 +92,35 @@ export default function Home() {
       )}
 
       {/* 2. PLAYER VIDEO */}
-      <div className={`transition-all duration-700 z-50 ${isTVMode ? 'fixed inset-0 bg-black flex flex-col items-center justify-start pt-12 px-4 pb-4 overflow-y-auto' : 'relative p-4 md:p-8 flex justify-center'}`}>
+      {/* PERBAIKAN 2: h-screen w-screen dan dipusatkan */}
+      <div className={`transition-all duration-700 z-50 ${isTVMode ? 'fixed inset-0 bg-black flex flex-col items-center justify-center p-4 md:p-6 overflow-hidden h-screen w-screen box-border' : 'relative p-4 md:p-8 flex justify-center'}`}>
          {isTVMode && (
            <>
-             <button onClick={() => setIsTVMode(false)} className="absolute top-4 right-4 bg-red-900 bg-opacity-30 hover:bg-opacity-100 text-white px-4 py-2 rounded transition-all z-[60]">
+             <button onClick={() => setIsTVMode(false)} className="absolute top-4 right-4 bg-red-900 bg-opacity-30 hover:bg-opacity-100 text-white px-3 py-1 text-sm md:px-4 md:py-2 rounded transition-all z-[60]">
                ✖ Keluar TV
              </button>
-             <div className="flex flex-col items-center pb-6 animate-fade-in w-full shrink-0">
-               <div className="flex items-center gap-4">
-                 <img src="/logo.png" alt="Logo" className="w-16 h-16 object-contain" onError={(e: any) => { e.target.style.display = 'none'; }} />
-                 <h1 className="text-5xl md:text-6xl font-extrabold text-red-600 tracking-wider">SHERA <span className="text-white">MUSIC</span></h1>
+             
+             {/* PERBAIKAN 3: Header (Logo & Judul) Diperkecil */}
+             <div className="flex flex-col items-center mb-4 shrink-0 animate-fade-in w-full">
+               <div className="flex items-center gap-3">
+                 <img src="/logo.png" alt="Logo" className="w-10 h-10 md:w-12 md:h-12 object-contain" onError={(e: any) => { e.target.style.display = 'none'; }} />
+                 <h1 className="text-3xl md:text-4xl font-extrabold text-red-600 tracking-wider">SHERA <span className="text-white">MUSIC</span></h1>
                </div>
-               <h2 className="text-2xl md:text-3xl mt-4 font-bold text-red-200 bg-red-900 bg-opacity-40 px-8 py-2 rounded-full shadow-lg max-w-4xl truncate text-center border border-red-800">
+               <h2 className="text-lg md:text-xl mt-2 font-bold text-red-200 bg-red-900 bg-opacity-40 px-6 py-1.5 rounded-full shadow-lg max-w-3xl truncate text-center border border-red-800">
                  {currentSong ? currentSong.title : 'Silakan Pilih Lagu...'}
                </h2>
              </div>
            </>
          )}
 
-         <div className={!isTVMode ? "bg-red-950 p-4 rounded-xl shadow-lg border border-red-900 w-full max-w-3xl" : "flex justify-center w-full"}>
+         {/* PERBAIKAN 4: Penyesuaian Ruang Pemutar */}
+         <div className={`w-full flex flex-col justify-center ${!isTVMode ? "bg-red-950 p-4 rounded-xl shadow-lg border border-red-900 max-w-3xl" : "flex-1 min-h-0 items-center"}`}>
            {!isTVMode && (
              <h2 className="text-white font-bold mb-3 flex items-center gap-2">
                <span className="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span> Preview Layar (Remote)
              </h2>
            )}
-           <div className="flex justify-center w-full">
+           <div className="flex justify-center w-full items-center">
              <KaraokePlayer currentSong={currentSong} isTVMode={isTVMode} />
            </div>
            
