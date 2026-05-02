@@ -1,7 +1,6 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import('next').Next.config} */
+const nextConfig = {
+  output: 'standalone', // Ini wajib untuk deployment di Netlify/Vercel
 };
 
-export default nextConfig;
+module.exports = nextConfig;
