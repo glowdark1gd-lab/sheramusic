@@ -6,7 +6,7 @@ import KaraokePlayer from './components/KaraokePlayer';
 import PlaylistView from './components/PlaylistView';
 
 export default function Home() {
-  const [queue, setQueue] = useState([]);
+  const [queue, setQueue] = useState<any[]>([]);
   const [isTVMode, setIsTVMode] = useState(false);
   const [addedSongModal, setAddedSongModal] = useState(null);
   const [controlChannel, setControlChannel] = useState(null);
