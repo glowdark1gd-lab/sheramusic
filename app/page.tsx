@@ -41,7 +41,7 @@ export default function Home() {
   }, []);
 
   // -- FUNGSI REMOTE CONTROL --
-  const handleAddSong = async (song) => {
+  const handleAddSong = async (song: any) => {
     const { error } = await supabase.from('playlist').insert([
       { video_id: song.videoId, title: song.title, thumbnail: song.thumbnail }
     ]);
@@ -51,7 +51,7 @@ export default function Home() {
     }
   };
 
-  const handleDeleteSong = async (id) => {
+  const handleDeleteSong = async (id: any) => {
     await supabase.from('playlist').delete().eq('id', id);
   };
 
@@ -61,7 +61,7 @@ export default function Home() {
     }
   };
 
-  const sendPlaybackCommand = (action) => {
+  const sendPlaybackCommand = (action: any) => {
     if (controlChannel) {
       controlChannel.send({
         type: 'broadcast',
@@ -99,7 +99,7 @@ export default function Home() {
              </button>
              <div className="flex flex-col items-center pb-6 animate-fade-in w-full shrink-0">
                <div className="flex items-center gap-4">
-                 <img src="/logo.png" alt="Logo" className="w-16 h-16 object-contain" onError={(e) => { e.target.style.display = 'none'; }} />
+                 <img src="/logo.png" alt="Logo" className="w-16 h-16 object-contain" onError={(e: any) => { e.target.style.display = 'none'; }} />
                  <h1 className="text-5xl md:text-6xl font-extrabold text-red-600 tracking-wider">SHERA <span className="text-white">MUSIC</span></h1>
                </div>
                <h2 className="text-2xl md:text-3xl mt-4 font-bold text-red-200 bg-red-900 bg-opacity-40 px-8 py-2 rounded-full shadow-lg max-w-4xl truncate text-center border border-red-800">
